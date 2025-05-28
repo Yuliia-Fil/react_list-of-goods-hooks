@@ -16,7 +16,7 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-type Field = 'alphabetically' | 'length';
+type Field = 'alphabetically' | 'length' | 'reverse';
 
 function sort(goods: string[], field: Field, isReversed: boolean) {
   const sortedGoods = [...goods];
@@ -31,6 +31,10 @@ function sort(goods: string[], field: Field, isReversed: boolean) {
         return 0;
     }
   });
+
+  if (field === 'reverse') {
+    return sortedGoods.reverse();
+  }
 
   return sortedGoods;
 }
@@ -101,7 +105,8 @@ export const App = () => {
             'is-light': !activeButtons.rev,
           })}
           onClick={() => {
-            setGoods([...goods].reverse());
+            // setGoods([...goods].reverse());
+            setGoods(sort(goods, 'reverse', activeButtons.rev));
             setActiveButtons({ ...activeButtons, rev: !activeButtons.rev });
           }}
         >
